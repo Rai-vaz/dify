@@ -5,10 +5,10 @@ x-shared-env: &shared-api-worker-env
   FLASK_DEBUG: ${FLASK_DEBUG:-false}
   SECRET_KEY: ${SECRET_KEY:-sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U}
   INIT_PASSWORD: ${INIT_PASSWORD:-P8rwxNG7pZjjZW9ZxTrk6klRdbXoLPW6}
-  CONSOLE_WEB_URL: ${CONSOLE_WEB_URL:-http://167.86.120.56:3000}
-  CONSOLE_API_URL: ${CONSOLE_API_URL:-http://167.86.120.56:5001}
-  SERVICE_API_URL: ${SERVICE_API_URL:-http://167.86.120.56:5001}
-  APP_WEB_URL: ${APP_WEB_URL:-http://167.86.120.56:3000}
+  CONSOLE_WEB_URL: ${CONSOLE_WEB_URL:-https://dify2.inacai.com.br}
+  CONSOLE_API_URL: ${CONSOLE_API_URL:-https://api2.inacai.com.br}
+  SERVICE_API_URL: ${SERVICE_API_URL:-https://api2.inacai.com.br}
+  APP_WEB_URL: ${APP_WEB_URL:-https://dify2.inacai.com.br}
   CHECK_UPDATE_URL: ${CHECK_UPDATE_URL:-https://updates.dify.ai}
   OPENAI_API_BASE: ${OPENAI_API_BASE:-https://api.openai.com/v1}
   FILES_URL: ${FILES_URL:-}
@@ -223,7 +223,6 @@ services:
       - ./volumes/app/storage:/app/api/storage
     networks:
       - traefik_network
-      - default
     ports:
       - "5001:5001"
     labels:
@@ -248,15 +247,15 @@ services:
       - ./volumes/app/storage:/app/api/storage
     networks:
       - traefik_network
-      - default
-
   # Frontend web application.
   web:
     image: langgenius/dify-web:0.8.2
     restart: always
+    networks:
+     - traefik_network
     environment:
-      CONSOLE_API_URL: ${CONSOLE_API_URL:-}
-      APP_API_URL: ${APP_API_URL:-}
+      CONSOLE_API_URL: ${CONSOLE_API_URL:-https://api2.inacai.com.br}
+      APP_API_URL: ${APP_API_URL:-https://api2.inacai.com.br}
       SENTRY_DSN: ${WEB_SENTRY_DSN:-}
       NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED:-0}
       TEXT_GENERATION_TIMEOUT_MS: ${TEXT_GENERATION_TIMEOUT_MS:-60000}
