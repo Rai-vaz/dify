@@ -224,6 +224,8 @@ services:
     networks:
       - traefik_network
       - default
+    ports:
+      - "5001:5001"
     labels:
       - "traefik.http.routers.dify2api.rule=Host(`api2.inacai.com.br`)"
       - "traefik.http.services.dify2api.loadbalancer.server.port=5001"
@@ -258,6 +260,8 @@ services:
       SENTRY_DSN: ${WEB_SENTRY_DSN:-}
       NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED:-0}
       TEXT_GENERATION_TIMEOUT_MS: ${TEXT_GENERATION_TIMEOUT_MS:-60000}
+    ports:
+      - "3000:3000"
 
   # The postgres database.
   db:
