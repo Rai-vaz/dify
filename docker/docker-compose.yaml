@@ -261,11 +261,16 @@ services:
       TEXT_GENERATION_TIMEOUT_MS: ${TEXT_GENERATION_TIMEOUT_MS:-60000}
     ports:
       - "3000:3000"
+    labels:
+      - "traefik.http.routers.dify2.rule=Host(`dify2.inacai.com.br`)"
+      - "traefik.http.services.dify2.loadbalancer.server.port=3000"
 
   # The postgres database.
   db:
     image: postgres:15-alpine
     restart: always
+    networks:
+     - traefik_network
     environment:
       PGUSER: ${PGUSER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-difyai123456}
@@ -285,14 +290,14 @@ services:
       timeout: 3s
       retries: 30
 
-    labels:
-      - "traefik.http.routers.dify2.rule=Host(`dify2.inacai.com.br`)"
-      - "traefik.http.services.dify2.loadbalancer.server.port=3000"
+   
 
   # The redis cache.
   redis:
     image: redis:6-alpine
     restart: always
+    networks:
+     - traefik_network
     volumes:
       # Mount the redis data directory to the container.
       - ./volumes/redis/data:/data
@@ -342,7 +347,7 @@ services:
       SANDBOX_PORT: ${SANDBOX_PORT:-8194}
     networks:
       - traefik_network
-      - default
+ 
 
   # Certbot service
   # use `docker-compose --profile certbot up` to start the certbot service.
@@ -407,6 +412,8 @@ services:
   # The Weaviate vector store.
   weaviate:
     image: semitechnologies/weaviate:1.19.0
+    networks:
+     - traefik_network
     profiles:
       - ""
       - weaviate
@@ -435,6 +442,8 @@ services:
     profiles:
       - qdrant
     restart: always
+    networks:
+     - traefik_network
     volumes:
       - ./volumes/qdrant:/qdrant/storage
     environment:
@@ -443,6 +452,8 @@ services:
   # The pgvector vector database.
   pgvector:
     image: pgvector/pgvector:pg16
+    networks:
+     - traefik_network
     profiles:
       - pgvector
     restart: always
@@ -468,6 +479,8 @@ services:
     profiles:
       - pgvecto-rs
     restart: always
+    networks:
+     - traefik_network
     environment:
       PGUSER: ${PGVECTOR_PGUSER:-postgres}
       # The password for the default postgres user.
@@ -578,7 +591,7 @@ services:
       - 19530:19530
       - 9091:9091
     networks:
-      - milvus
+     - traefik_network
 
   # Opensearch vector database
   opensearch:
@@ -601,7 +614,7 @@ services:
     volumes:
       - ./volumes/opensearch/data:/usr/share/opensearch/data
     networks:
-      - opensearch-net
+     - traefik_network
 
   opensearch-dashboards:
     container_name: opensearch-dashboards
@@ -613,7 +626,7 @@ services:
     volumes:
       - ./volumes/opensearch/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
     networks:
-      - opensearch-net
+      - traefik_network
     depends_on:
       - opensearch
 
