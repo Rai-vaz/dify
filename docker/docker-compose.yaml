@@ -225,9 +225,9 @@ services:
       - traefik_network
     ports:
       - "5001:5001"
-    labels:
-      - "traefik.http.routers.dify2api.rule=Host(`api2.inacai.com.br`)"
-      - "traefik.http.services.dify2api.loadbalancer.server.port=5001"
+    # labels:
+    #   - "traefik.http.routers.dify2api.rule=Host(`api2.inacai.com.br`)"
+    #   - "traefik.http.services.dify2api.loadbalancer.server.port=5001"
 
   # worker service
   # The Celery worker for processing the queue.
@@ -261,9 +261,9 @@ services:
       TEXT_GENERATION_TIMEOUT_MS: ${TEXT_GENERATION_TIMEOUT_MS:-60000}
     ports:
       - "3000:3000"
-    labels:
-      - "traefik.http.routers.dify2.rule=Host(`dify2.inacai.com.br`)"
-      - "traefik.http.services.dify2.loadbalancer.server.port=3000"
+    # labels:
+    #   - "traefik.http.routers.dify2.rule=Host(`dify2.inacai.com.br`)"
+    #   - "traefik.http.services.dify2.loadbalancer.server.port=3000"
 
   # The postgres database.
   db:
