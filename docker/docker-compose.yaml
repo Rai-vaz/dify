@@ -254,8 +254,8 @@ services:
     networks:
      - traefik_network
     environment:
-      CONSOLE_API_URL: ${CONSOLE_API_URL:-https://api2.inacai.com.br}
-      APP_API_URL: ${APP_API_URL:-https://api2.inacai.com.br}
+      CONSOLE_API_URL: ${CONSOLE_API_URL:-}
+      APP_API_URL: ${APP_API_URL:-}
       SENTRY_DSN: ${WEB_SENTRY_DSN:-}
       NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED:-0}
       TEXT_GENERATION_TIMEOUT_MS: ${TEXT_GENERATION_TIMEOUT_MS:-60000}
@@ -713,13 +713,8 @@ services:
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.
   traefik_network:
-    driver: bridge
     internal: true
-  milvus:
-    driver: bridge
-  opensearch-net:
-    driver: bridge
-    internal: true
+  
 
 volumes:
   oradata:
