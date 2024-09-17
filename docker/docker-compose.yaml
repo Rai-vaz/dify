@@ -5,10 +5,10 @@ x-shared-env: &shared-api-worker-env
   FLASK_DEBUG: ${FLASK_DEBUG:-false}
   SECRET_KEY: ${SECRET_KEY:-sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U}
   INIT_PASSWORD: ${INIT_PASSWORD:-P8rwxNG7pZjjZW9ZxTrk6klRdbXoLPW6}
-  CONSOLE_WEB_URL: ${CONSOLE_WEB_URL:-https://dify2.inacai.com.br}
-  CONSOLE_API_URL: ${CONSOLE_API_URL:-https://api2.inacai.com.br}
-  SERVICE_API_URL: ${SERVICE_API_URL:-https://api2.inacai.com.br}
-  APP_WEB_URL: ${APP_WEB_URL:-https://dify2.inacai.com.br}
+  CONSOLE_WEB_URL: ${CONSOLE_WEB_URL:-http://167.86.120.56:3000}
+  CONSOLE_API_URL: ${CONSOLE_API_URL:-http://167.86.120.56:5001}
+  SERVICE_API_URL: ${SERVICE_API_URL:-http://167.86.120.56:5001}
+  APP_WEB_URL: ${APP_WEB_URL:-http://167.86.120.56:3000}
   CHECK_UPDATE_URL: ${CHECK_UPDATE_URL:-https://updates.dify.ai}
   OPENAI_API_BASE: ${OPENAI_API_BASE:-https://api.openai.com/v1}
   FILES_URL: ${FILES_URL:-}
