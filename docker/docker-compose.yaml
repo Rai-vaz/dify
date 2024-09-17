@@ -545,7 +545,7 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - milvus
+      - traefik_network
 
   minio:
     container_name: milvus-minio
